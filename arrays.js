@@ -90,14 +90,13 @@ function sumInput() {
 
 //5
 function getMaxSubSum(arr) {
-  let maxSum = 0; // если элементов не будет - возвращаем 0
+  let maxSum = 0;
+  let partialSum = 0;
 
-  for (let i = 0; i < arr.length; i++) {
-    let sumFixedStart = 0;
-    for (let j = i; j < arr.length; j++) {
-      sumFixedStart += arr[j];
-      maxSum = Math.max(maxSum, sumFixedStart);
-    }
+  for (let item of arr) {
+    partialSum += item;
+    maxSum = Math.max(maxSum, partialSum);
+    if (partialSum < 0) partialSum = 0;
   }
 
   return maxSum;
