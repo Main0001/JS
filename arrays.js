@@ -91,12 +91,14 @@ function sumInput() {
 //5
 function getMaxSubSum(arr) {
   let maxSum = 0;
-  let partialSum = 0;
+  let secondSum = 0;
 
-  for (let item of arr) {
-    partialSum += item;
-    maxSum = Math.max(maxSum, partialSum);
-    if (partialSum < 0) partialSum = 0;
+  for (let val of arr) {
+    secondSum += val;
+    maxSum = Math.max(maxSum, secondSum);
+    if (secondSum < 0) {
+      secondSum = 0;
+    }
   }
 
   return maxSum;
