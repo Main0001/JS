@@ -1,0 +1,23 @@
+<html>
+<body>
+  <div>Начало</div>
+
+  <ul>
+    <li>Информация</li>
+  </ul>
+
+  <div>Конец</div>
+
+  <script>
+    for (let i = 0; i < document.body.childNodes.length; i++) {
+      alert( document.body.childNodes[i] ); // Text, DIV, Text, UL, ..., SCRIPT
+    }
+
+    for (let elem of document.body.children) {
+      alert(elem); // DIV, UL, DIV, SCRIPT
+    }
+  </script>
+  ...какой-то HTML-код...
+</body>
+<script src="./script.js"></script>
+</html>

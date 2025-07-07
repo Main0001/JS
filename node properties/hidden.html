@@ -1,0 +1,15 @@
+<div>Оба тега DIV внизу невидимы</div>
+
+<div hidden>С атрибутом "hidden"</div>
+
+<div id="elem">С назначенным JavaScript свойством "hidden"</div>
+
+<script>
+  elem.hidden = true;
+</script>
+
+<div id="elem1">Мигающий элемент</div>
+
+<script>
+  setInterval(() => elem1.hidden = !elem1.hidden, 1000);
+</script>

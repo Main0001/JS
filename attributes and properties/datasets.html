@@ -1,0 +1,78 @@
+<!-- пометить div, чтобы показать здесь поле "name" -->
+<div show-info="name"></div>
+<!-- а здесь возраст "age" -->
+<div show-info="age"></div>
+
+<script>
+  // код находит элемент с пометкой и показывает запрошенную информацию
+  let user = {
+    name: "Pete",
+    age: 25
+  };
+
+  for(let div of document.querySelectorAll('[show-info]')) {
+    // вставить соответствующую информацию в поле
+    let field = div.getAttribute('show-info');
+    div.innerHTML = user[field]; // сначала Pete в name, потом 25 в age
+  }
+</script>
+
+<style>
+  /* стили зависят от пользовательского атрибута "order-state" */
+  .order[order-state="new"] {
+    color: green;
+  }
+
+  .order[order-state="pending"] {
+    color: blue;
+  }
+
+  .order[order-state="canceled"] {
+    color: red;
+  }
+</style>
+
+<div class="order" order-state="new">
+  A new order.
+</div>
+
+<div class="order" order-state="pending">
+  A pending order.
+</div>
+
+<div class="order" order-state="canceled">
+  A canceled order.
+</div>
+
+
+<body data-about="Elephants">
+<script>
+  alert(document.body.dataset.about); // Elephants
+</script>
+
+
+<style>
+  .order[data-order-state="new"] {
+    color: green;
+  }
+
+  .order[data-order-state="pending"] {
+    color: blue;
+  }
+
+  .order[data-order-state="canceled"] {
+    color: red;
+  }
+</style>
+
+<div id="order" class="order" data-order-state="new">
+  A new order.
+</div>
+
+<script>
+  // чтение
+  alert(order.dataset.orderState); // new
+
+  // изменение
+  order.dataset.orderState = "pending"; // (*)
+</script>

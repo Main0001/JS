@@ -1,0 +1,19 @@
+<input id="input" type="checkbox" checked> checkbox
+
+<script>
+  alert(input.getAttribute('checked')); // значение атрибута: пустая строка
+  alert(input.checked); // значение свойства: true
+</script>
+
+
+<div id="div" style="color:red;font-size:120%">Hello</div>
+
+<script>
+  // строка
+  alert(div.getAttribute('style')); // color:red;font-size:120%
+
+  // объект
+  alert(div.style); // [object CSSStyleDeclaration]
+  alert(div.style.color); // red
+</script>
+

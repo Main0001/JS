@@ -1,0 +1,22 @@
+<body>
+  <p>Параграф</p>
+  <div>DIV</div>
+
+  <script>
+    alert( document.body.innerHTML ); // читаем текущее содержимое
+    document.body.innerHTML = 'Новый BODY!'; // заменяем содержимое
+  </script>
+
+</body>
+
+<body>
+
+  <script>
+    document.body.innerHTML = '<b>тест'; // забыли закрыть тег
+    alert( document.body.innerHTML ); // <b>тест</b> (исправлено)
+  </script>
+
+</body>
+
+<!-- Скрипты не выполнятся
+Если innerHTML вставляет в документ тег <script> – он становится частью HTML, но не запускается. -->

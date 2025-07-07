@@ -1,0 +1,27 @@
+<input>
+
+<script>
+  let input = document.querySelector('input');
+
+  // атрибут => свойство
+  input.setAttribute('id', 'id');
+  alert(input.id); // id (обновлено)
+
+  // свойство => атрибут
+  input.id = 'newId';
+  alert(input.getAttribute('id')); // newId (обновлено)
+</script>
+
+<input>
+
+<script>
+  let input = document.querySelector('input');
+
+  // атрибут => значение
+  input.setAttribute('value', 'text');
+  alert(input.value); // text
+
+  // свойство => атрибут
+  input.value = 'newValue';
+  alert(input.getAttribute('value')); // text (не обновилось!)
+</script>

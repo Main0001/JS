@@ -1,0 +1,15 @@
+<body>
+  <script>
+  let elem = document.body;
+
+  // давайте разберёмся: какой тип узла находится в elem?
+  alert(elem.nodeType); // 1 => элемент
+
+  // и его первый потомок...
+  alert(elem.firstChild.nodeType); // 3 => текст
+
+  // для объекта document значение типа -- 9
+  alert( document.nodeType ); // 9
+
+  </script>
+</body>
