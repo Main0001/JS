@@ -1,0 +1,139 @@
+<script>
+    let top = 0; /* сложные расчёты */
+    let left = 0; /* сложные расчёты */
+
+    // полная перезапись стилей elem, используем =
+    elem.style.cssText = `
+    top: ${top};
+    left: ${left};
+    `;
+
+    // добавление новых стилей к существующим стилям elem, используем +=
+    elem.style.cssText += `
+    top: ${top};
+    left: ${left};
+    `;
+
+    // если элементу уже заданы стили, которые мы хотим добавить (+=),
+    // они будут перезаписаны на новые.
+</script>
+
+<script>
+    top = /* сложные расчёты */
+    left = /* сложные расчёты */
+
+    elem.style.left = left; // например, '123px', значение вычисляется во время работы скрипта
+    elem.style.top = top; // например, '456px'    
+</script>
+
+<body class="main page">
+  <script>
+    alert(document.body.className); // main page
+  </script>
+</body>
+
+<body class="main page">
+  <script>
+    // добавление класса
+    document.body.classList.add('article');
+
+    alert(document.body.className); // main page article
+  </script>
+</body>
+
+<!-- 
+elem.classList.add/remove("class") – добавить/удалить класс.
+elem.classList.toggle("class") – добавить класс, если его нет, иначе удалить.
+elem.classList.contains("class") – проверка наличия класса, возвращает true/false. -->
+
+<body class="main page">
+  <script>
+    for (let name of document.body.classList) {
+      alert(name); // main, затем page
+    }
+  </script>
+</body>
+
+<script>
+    // если мы запустим этот код, <body> "мигнёт"
+    document.body.style.display = "none"; // скрыть
+
+    setTimeout(() => document.body.style.display = "", 1000); // возврат к нормальному состоянию
+</script>
+
+
+<body>
+  <script>
+    // не работает!
+    document.body.style.margin = 20;
+    alert(document.body.style.margin); // '' (пустая строка, присваивание игнорируется)
+
+    // сейчас добавим единицу измерения (px) - и заработает
+    document.body.style.margin = '20px';
+    alert(document.body.style.margin); // 20px
+
+    alert(document.body.style.marginTop); // 20px
+    alert(document.body.style.marginLeft); // 20px
+  </script>
+</body>
+
+
+<head>
+  <style> body { color: red; margin: 5px } </style>
+</head>
+<body>
+
+  Красный текст
+  <script>
+    alert(document.body.style.color); // пусто
+    alert(document.body.style.marginTop); // пусто
+  </script>
+</body>
+
+<head>
+  <style> body { color: red; margin: 5px } </style>
+</head>
+<body>
+
+  <script>
+    let computedStyle = getComputedStyle(document.body);
+
+    // сейчас мы можем прочитать отступ и цвет
+
+    alert( computedStyle.marginTop ); // 5px
+    alert( computedStyle.color ); // rgb(255, 0, 0)
+  </script>
+
+</body>
+
+<!-- Tasks -->
+
+  <script>
+    function showNotification({top = 0, right = 0, className, html}) {
+
+      let notification = document.createElement('div');
+      notification.className = "notification";
+      if (className) {
+        notification.classList.add(className);
+      }
+
+      notification.style.top = top + 'px';
+      notification.style.right = right + 'px';
+
+      notification.innerHTML = html;
+      document.body.append(notification);
+
+      setTimeout(() => notification.remove(), 1500);
+    }
+
+    // test it
+    let i = 1;
+    setInterval(() => {
+      showNotification({
+        top: 10,
+        right: 10,
+        html: 'Hello ' + i++,
+        className: "welcome"
+      });
+    }, 2000);
+  </script>
