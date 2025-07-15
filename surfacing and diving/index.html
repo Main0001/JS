@@ -1,0 +1,71 @@
+<div onclick="alert('Обработчик!')">
+  <em>Если вы кликните на <code>EM</code>, сработает обработчик на <code>DIV</code></em>
+</div>
+
+<!-- Когда на элементе происходит событие, 
+обработчики сначала срабатывают на нём, 
+потом на его родителе, затем выше и так далее, вверх по цепочке предков. -->
+
+<style>
+  body * {
+    margin: 10px;
+    border: 1px solid blue;
+  }
+</style>
+
+<form onclick="alert('form')">FORM
+  <div onclick="alert('div')">DIV
+    <p onclick="alert('p')">P</p>
+  </div>
+</form>
+
+<!-- Клик по внутреннему <p> вызовет обработчик onclick:
+
+Сначала на самом <p>.
+Потом на внешнем <div>.
+Затем на внешнем <form>.
+И так далее вверх по цепочке до самого document. -->
+
+<!-- Например, если стоит только один обработчик form.onclick, 
+то он «поймает» все клики внутри формы. Где бы ни был клик внутри – 
+он всплывёт до элемента <form>, на котором сработает обработчик.
+
+this (=event.currentTarget) всегда будет элемент <form>, так как обработчик сработал на ней.
+event.target будет содержать ссылку на конкретный элемент внутри формы, на котором произошёл клик. -->
+
+<body onclick="alert(`сюда всплытие не дойдёт`)">
+  <button onclick="event.stopPropagation()">Кликни меня</button>
+</body>
+
+<!-- Для того, чтобы полностью остановить обработку, существует метод event.stopImmediatePropagation(). 
+Он не только предотвращает всплытие, но и останавливает обработку событий на текущем элементе. -->
+
+<!-- Чтобы поймать событие на стадии погружения, нужно использовать третий аргумент capture вот так:
+
+elem.addEventListener(..., {capture: true})
+// или просто "true", как сокращение для {capture: true}
+elem.addEventListener(..., true)
+Существуют два варианта значений опции capture:
+
+Если аргумент false (по умолчанию), то событие будет поймано при всплытии.
+Если аргумент true, то событие будет перехвачено при погружении. -->
+
+<style>
+  body * {
+    margin: 10px;
+    border: 1px solid blue;
+  }
+</style>
+
+<form>FORM
+  <div>DIV
+    <p>P</p>
+  </div>
+</form>
+
+<script>
+  for(let elem of document.querySelectorAll('*')) {
+    elem.addEventListener("click", e => alert(`Погружение: ${elem.tagName}`), true);
+    elem.addEventListener("click", e => alert(`Всплытие: ${elem.tagName}`));
+  }
+</script>

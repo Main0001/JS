@@ -1,0 +1,21 @@
+<button id="button">Нажми Alt+Shift+Click на мне!</button>
+
+<script>
+  button.onclick = function(event) {
+    if (event.altKey && event.shiftKey) {
+      alert('Ура!');
+    }
+  };
+</script>
+
+<input onmousemove="this.value=event.clientX+':'+event.clientY" value="Наведи на меня мышь">
+
+<b ondblclick="alert('Клик!')" onmousedown="return false">
+  Сделайте двойной клик на мне
+</b>
+
+<div oncopy="alert('Копирование запрещено!');return false">
+  Уважаемый пользователь,
+  Копирование информации запрещено для вас.
+  Если вы знаете JS или HTML, вы можете найти всю нужную вам информацию в исходном коде страницы.
+</div>

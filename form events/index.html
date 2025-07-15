@@ -1,0 +1,68 @@
+<!-- document.forms.my - форма с именем "my" (name="my")
+document.forms[0] - первая форма в документе -->
+
+<form name="my">
+  <input name="one" value="1">
+  <input name="two" value="2">
+</form>
+
+<script>
+  // получаем форму
+  let form = document.forms.my; // <form name="my"> element
+
+  // получаем элемент
+  let elem = form.elements.one; // <input name="one"> element
+
+  alert(elem.value); // 1
+</script>
+
+
+<form>
+  <input type="radio" name="age" value="10">
+  <input type="radio" name="age" value="20">
+</form>
+
+<script>
+form = document.forms[0];
+
+let ageElems = form.elements.age;
+
+alert(ageElems[0]); // [object HTMLInputElement]
+</script>
+
+<body>
+  <form id="form">
+    <fieldset name="userFields">
+      <legend>info</legend>
+      <input name="login" type="text">
+    </fieldset>
+  </form>
+
+  <script>
+    alert(form.elements.login); // <input name="login">
+
+    let fieldset = form.elements.userFields;
+    alert(fieldset); // HTMLFieldSetElement
+
+    // мы можем достать элемент по имени как из формы, так и из fieldset с ним
+    alert(fieldset.elements.login == form.elements.login); // true
+  </script>
+</body>
+
+
+<form id="form">
+  <input name="login">
+</form>
+
+<script>
+  alert(form.elements.login == form.login); // true, ведь это одинаковые <input>
+
+  form.login.name = "username"; // изменяем свойство name у элемента input
+
+  // form.elements обновили свои имена:
+  alert(form.elements.login); // undefined
+  alert(form.elements.username); // input
+
+  // а в form мы можем использовать оба имени: новое и старое
+  alert(form.username == form.login); // true
+</script>

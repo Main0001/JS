@@ -1,0 +1,77 @@
+<a href="/" onclick="return false">Нажми здесь</a>
+или
+<a href="/" onclick="event.preventDefault()">здесь</a>
+
+<ul id="menu" class="menu">
+  <li><a href="/html">HTML</a></li>
+  <li><a href="/javascript">JavaScript</a></li>
+  <li><a href="/css">CSS</a></li>
+</ul>
+
+<script>
+    menu.onclick = function(event) {
+    if (event.target.nodeName != 'A') return;
+
+    let href = event.target.getAttribute('href');
+    alert( href ); // может быть подгрузка с сервера, генерация интерфейса и т.п.
+
+    return false; // отменить действие браузера (переход по ссылке)
+    };    
+</script>
+
+<!-- Необязательная опция passive: true для addEventListener сигнализирует браузеру, 
+что обработчик не собирается выполнять preventDefault(). -->
+
+<button>Правый клик вызывает контекстное меню браузера</button>
+
+<button oncontextmenu="alert('Рисуем наше меню'); return false">
+  Правый клик вызывает наше контекстное меню
+</button>
+
+<p>Правый клик здесь вызывает контекстное меню документа</p>
+<button id="elem">Правый клик здесь вызывает контекстное меню кнопки</button>
+
+<script>
+  elem.oncontextmenu = function(event) {
+    event.preventDefault();
+    alert("Контекстное меню кнопки");
+  };
+
+  document.oncontextmenu = function(event) {
+    event.preventDefault();
+    alert("Контекстное меню документа");
+  };
+</script>
+
+<p>Правый клик вызывает меню документа</p>
+<button id="elem">Правый клик вызывает меню кнопки (добавлен event.stopPropagation)</button>
+
+<script>
+  elem.oncontextmenu = function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    alert("Контекстное меню кнопки");
+  };
+
+  document.oncontextmenu = function(event) {
+    event.preventDefault();
+    alert("Контекстное меню документа");
+  };
+</script>
+
+<p>Правый клик вызывает меню документа (добавлена проверка event.defaultPrevented)</p>
+<button id="elem">Правый клик вызывает меню кнопки</button>
+
+<script>
+  elem.oncontextmenu = function(event) {
+    event.preventDefault();
+    alert("Контекстное меню кнопки");
+  };
+
+  document.oncontextmenu = function(event) {
+    if (event.defaultPrevented) return;
+
+    event.preventDefault();
+    alert("Контекстное меню документа");
+  };
+</script>

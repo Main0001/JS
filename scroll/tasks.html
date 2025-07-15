@@ -1,0 +1,153 @@
+<!-- 1 -->
+ <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+<h1>Прокрути меня</h1>
+
+<script>
+  function populate() {
+    while(true) {
+      let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+      if (windowRelativeBottom > document.documentElement.clientHeight + 100) break;
+      document.body.insertAdjacentHTML("beforeend", `<p>Date: ${new Date()}</p>`);
+    }
+  }
+
+  window.addEventListener('scroll', populate);
+
+  populate(); // инициализация документа
+</script>
+
+</body>
+</html>
+
+<!-- 2 -->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <style>
+    body,
+    html {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #matrix {
+      width: 400px;
+      margin: auto;
+      overflow: auto;
+      text-align: justify;
+    }
+
+    #arrowTop {
+      height: 9px;
+      width: 14px;
+      color: green;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      cursor: pointer;
+    }
+
+    #arrowTop::before {
+      content: '▲';
+    }
+
+  </style>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <div id="matrix">
+    <script>
+      for (let i = 0; i < 2000; i++) document.writeln(i)
+    </script>
+  </div>
+
+  <div id="arrowTop" hidden></div>
+
+  <script>
+
+    arrowTop.onclick = function() {
+      window.scrollTo(pageXOffset, 0);
+      // после scrollTo возникнет событие "scroll", так что стрелка автоматически скроется
+    };
+
+    window.addEventListener('scroll', function() {
+      arrowTop.hidden = (pageYOffset < document.documentElement.clientHeight);
+    });
+  </script>
+
+</body>
+</html>
+
+<!-- 3 -->
+
+ <script>
+    /**
+     * Проверка видимости элемента (в видимой части страницы)
+     * Достаточно, чтобы верхний или нижний край элемента был виден
+     */
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      // видны верхний ИЛИ нижний край элемента
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    /**
+    Вариант проверки, считающий элемент видимым,
+    если он не более чем -1 страница назад или +1 страница вперед.
+
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      let extendedTop = -windowHeight;
+      let extendedBottom = 2 * windowHeight;
+
+      // top visible || bottom visible
+      let topVisible = coords.top > extendedTop && coords.top < extendedBottom;
+      let bottomVisible = coords.bottom < extendedBottom && coords.bottom > extendedTop;
+
+      return topVisible || bottomVisible;
+    }
+    */
+
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+
+        if (isVisible(img)) {
+          // отключение кеширования
+          // эта строка должна быть удалена в "боевом" коде
+          realSrc += '?nocache=' + Math.random();
+
+          img.src = realSrc;
+
+          img.dataset.src = '';
+        }
+      }
+    }
+
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+  </script>

@@ -1,0 +1,125 @@
+<button id="elem" onclick="alert('Клик!');">Автоклик</button>
+
+<script>
+  let event = new Event("click");
+  elem.dispatchEvent(event);
+</script>
+
+<!-- 
+Свойство event.isTrusted принимает значение true для событий, 
+порождаемых реальными действиями пользователя, и false для генерируемых кодом. -->
+
+<h1 id="elem">Привет из кода!</h1>
+
+<script>
+  // ловим на document...
+  document.addEventListener("hello", function(event) { // (1)
+    alert("Привет от " + event.target.tagName); // Привет от H1
+  });
+
+  // ...запуск события на элементе!
+  event = new Event("hello", {bubbles: true}); // (2)
+  elem.dispatchEvent(event);
+
+  // обработчик на document сработает и выведет сообщение.
+
+</script>
+
+<script>
+    event = new MouseEvent("click", {
+    bubbles: true,
+    cancelable: true,
+    clientX: 100,
+    clientY: 100
+    });
+
+    alert(event.clientX); // 100
+
+    event = new Event("click", {
+    bubbles: true, // только свойства bubbles и cancelable
+    cancelable: true, // работают в конструкторе Event
+    clientX: 100,
+    clientY: 100
+    });
+
+    alert(event.clientX); // undefined, неизвестное свойство проигнорировано!
+</script>
+
+
+<h1 id="elem">Привет для Васи!</h1>
+
+<script>
+  // дополнительная информация приходит в обработчик вместе с событием
+  elem.addEventListener("hello", function(event) {
+    alert(event.detail.name);
+  });
+
+  elem.dispatchEvent(new CustomEvent("hello", {
+    detail: { name: "Вася" }
+  }));
+</script>
+
+<pre id="rabbit">
+  |\   /|
+   \|_|/
+   /. .\
+  =\_Y_/=
+   {>o<}
+</pre>
+<button onclick="hide()">Hide()</button>
+
+<script>
+  // hide() будет вызван при щелчке на кнопке
+  function hide() {
+    let event = new CustomEvent("hide", {
+      cancelable: true // без этого флага preventDefault не сработает
+    });
+    if (!rabbit.dispatchEvent(event)) {
+      alert('Действие отменено обработчиком');
+    } else {
+      rabbit.hidden = true;
+    }
+  }
+
+  rabbit.addEventListener('hide', function(event) {
+    if (confirm("Вызвать preventDefault?")) {
+      event.preventDefault();
+    }
+  });
+</script>
+
+
+<button id="menu">Меню (нажми меня)</button>
+
+<script>
+  menu.onclick = function() {
+    alert(1);
+
+    // alert("вложенное событие")
+    menu.dispatchEvent(new CustomEvent("menu-open", {
+      bubbles: true
+    }));
+
+    alert(2);
+  };
+
+  document.addEventListener('menu-open', () => alert('вложенное событие'))
+</script>
+
+
+<button id="menu">Меню (нажми меня)</button>
+
+<script>
+  menu.onclick = function() {
+    alert(1);
+
+    // alert(2)
+    setTimeout(() => menu.dispatchEvent(new CustomEvent("menu-open", {
+      bubbles: true
+    })));
+
+    alert(2);
+  };
+
+  document.addEventListener('menu-open', () => alert('вложенное событие'))
+</script>

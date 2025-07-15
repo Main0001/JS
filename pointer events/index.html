@@ -1,0 +1,53 @@
+<!doctype html>
+<body>
+  <style>
+    #area {
+      border: 1px solid black;
+      width: 90%;
+      height: 180px;
+      cursor: pointer;
+      overflow: scroll;
+      user-select: none;
+    }
+  </style>
+
+  <div id="area">
+  Multi-touch here
+  </div>
+  <script>
+    document.onpointerdown = document.onpointerup = log;
+
+    function log(event) {
+      area.insertAdjacentHTML("beforeend", `
+        <div>${event.type} isPrimary=${event.isPrimary} pointerId=${event.pointerId}</div>
+      `)
+     area.scrollTop = 1e9;
+    }
+  </script>
+
+</body>
+
+<!-- elem.setPointerCapture(pointerId) – привязывает события с данным pointerId к elem. 
+После такого вызова все события указателя с таким pointerId будут иметь elem в качестве 
+целевого элемента (как будто произошли над elem), вне зависимости от того, где в документе они произошли. -->
+
+<script>
+    thumb.onpointerdown = function(event) {
+  // перенацелить все события указателя (до pointerup) на thumb
+  thumb.setPointerCapture(event.pointerId);
+  // начать отслеживание перемещения указателя
+  thumb.onpointermove = function(event) {
+    // перемещение слайдера: отслеживание thumb, т.к все события указателя перенацелены на него
+    let newLeft = event.clientX - slider.getBoundingClientRect().left;
+    thumb.style.left = newLeft + 'px';
+  };
+  // если сработало событие pointerup, завершить отслеживание перемещения указателя
+  thumb.onpointerup = function(event) {
+    thumb.onpointermove = null;
+    thumb.onpointerup = null;
+    // ...при необходимости также обработайте "конец перемещения"
+  };
+};
+// примечание: нет необходимости вызывать thumb.releasePointerCapture,
+// это происходит автоматически при pointerup
+</script>

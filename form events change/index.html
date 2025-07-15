@@ -1,0 +1,24 @@
+<input type="text" onchange="alert(this.value)">
+<input type="button" value="Button">
+
+<select onchange="alert(this.value)">
+  <option value="">Выберите что-нибудь</option>
+  <option value="1">Вариант 1</option>
+  <option value="2">Вариант 2</option>
+  <option value="3">Вариант 3</option>
+</select>
+
+<input type="text" id="input"> oninput: <span id="result"></span>
+<script>
+  input.oninput = function() {
+    result.innerHTML = input.value;
+  };
+</script>
+
+<input type="text" id="input">
+<script>
+  input.oncut = input.oncopy = input.onpaste = function(event) {
+    alert(event.type + ' - ' + event.clipboardData.getData('text/plain'));
+    return false;
+  };
+</script>
