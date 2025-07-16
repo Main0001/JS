@@ -1,0 +1,87 @@
+<script>
+  function ready() {
+    alert('DOM готов');
+
+    // изображение ещё не загружено (если не было закешировано), так что размер будет 0x0
+    alert(`Размер изображения: ${img.offsetWidth}x${img.offsetHeight}`);
+  }
+
+  document.addEventListener("DOMContentLoaded", ready);
+</script>
+
+<img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    alert("DOM готов!");
+  });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
+
+<script>
+  alert("Библиотека загружена, встроенный скрипт выполнен");
+</script>
+
+<link type="text/css" rel="stylesheet" href="style.css">
+<script>
+  // скрипт не выполняется, пока не загрузятся стили
+  alert(getComputedStyle(document.body).marginTop);
+</script>
+
+<script>
+  window.onload = function() { // можно также использовать window.addEventListener('load', (event) => {
+    alert('Страница загружена');
+
+    // к этому моменту картинка загружена
+    alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+  };
+</script>
+
+<img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
+
+<script>
+    let analyticsData = { /* объект с собранными данными */ };
+
+    window.addEventListener("unload", function() {
+    navigator.sendBeacon("/analytics", JSON.stringify(analyticsData));
+    });
+</script>
+
+<script>
+window.onbeforeunload = function() {
+  return false;
+};
+
+window.onbeforeunload = function() {
+  return "Есть несохранённые изменения. Всё равно уходим?";
+};
+</script>
+
+<script>
+    function work() { /*...*/ }
+
+    if (document.readyState == 'loading') {
+    // ещё загружается, ждём события
+    document.addEventListener('DOMContentLoaded', work);
+    } else {
+    // DOM готов!
+    work();
+    }
+</script>
+
+<script>
+  log('начальный readyState:' + document.readyState);
+
+  document.addEventListener('readystatechange', () => log('readyState:' + document.readyState));
+  document.addEventListener('DOMContentLoaded', () => log('DOMContentLoaded'));
+
+  window.onload = () => log('window onload');
+</script>
+
+<iframe src="iframe.html" onload="log('iframe onload')"></iframe>
+
+<img src="http://en.js.cx/clipart/train.gif" id="img">
+<script>
+  img.onload = () => log('img onload');
+</script>

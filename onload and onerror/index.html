@@ -1,0 +1,49 @@
+<script>
+    let script = document.createElement('script');
+
+    // мы можем загрузить любой скрипт с любого домена
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"
+    document.head.append(script);
+
+    script.onload = function() {
+    // в скрипте создаётся вспомогательная переменная с именем "_"
+    alert(_.VERSION); // отображает версию библиотеки
+    };
+</script>
+
+<script>
+    let script = document.createElement('script');
+    script.src = "https://example.com/404.js"; // такого файла не существует
+    document.head.append(script);
+
+    script.onerror = function() {
+    alert("Ошибка загрузки " + this.src); // Ошибка загрузки https://example.com/404.js
+    };
+</script>
+
+<script>
+    let img = document.createElement('img');
+    img.src = "https://js.cx/clipart/train.gif"; // (*)
+
+    img.onload = function() {
+    alert(`Изображение загружено, размеры ${img.width}x${img.height}`);
+    };
+
+    img.onerror = function() {
+    alert("Ошибка во время загрузки изображения");
+    };
+</script>
+
+<script>
+window.onerror = function(message, url, line, col, errorObj) {
+  alert(`${message}\n${url}, ${line}:${col}`);
+};
+</script>
+<script src="/article/onload-onerror/crossorigin/error.js"></script>
+
+<script>
+window.onerror = function(message, url, line, col, errorObj) {
+  alert(`${message}\n${url}, ${line}:${col}`);
+};
+</script>
+<script crossorigin="anonymous" src="https://cors.javascript.info/article/onload-onerror/crossorigin/error.js"></script>

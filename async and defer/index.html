@@ -1,0 +1,22 @@
+<!-- defer
+Атрибут defer сообщает браузеру, что он должен продолжать обрабатывать страницу и загружать скрипт в фоновом режиме, а затем запустить этот скрипт, когда DOM дерево будет полностью построено.
+
+Вот тот же пример, что и выше, но с defer: -->
+
+<p>...содержимое перед скриптом...</p>
+
+<script defer src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
+
+<!-- отображается сразу же -->
+<p>...содержимое после скрипта...</p>
+
+<p>...содержимое перед скриптами...</p>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => alert("DOM готов!"));
+</script>
+
+<script async src="https://javascript.info/article/script-async-defer/long.js"></script>
+<script async src="https://javascript.info/article/script-async-defer/small.js"></script>
+
+<p>...содержимое после скриптов...</p>
